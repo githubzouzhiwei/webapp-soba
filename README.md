@@ -3,4 +3,4 @@
 
 搜索页
 
-![image](https://github.com/githubzouzhiwei/webapp-soba/blob/master/snipaste_20170704_165703.png?raw=true）
+![image](https://github.com/githubzouzhiwei/webapp-soba/blob/master/snipaste_20170704_165703.png?raw=true)
