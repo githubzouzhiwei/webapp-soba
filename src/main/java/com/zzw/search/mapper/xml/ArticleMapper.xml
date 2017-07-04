@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzw.search.mapper.ArticleMapper">
+
+	<!-- 配置实体属性与数据库表子段的映射关系 -->
+	<resultMap id="articleMap" type="com.zzw.search.entity.Article">
+		<id property="id" column="id"/>
+		<result property="title" column="title"/>
+		<result property="content" column="content"/>
+		<result property="contentText" column="content_text"/>
+		<result property="status" column="status"/>
+		<result property="createAt" column="create_at"/>
+		<result property="updateAt" column="update_at"/>
+	</resultMap>
+
+	<insert id="add" parameterType="com.zzw.search.entity.Article" useGeneratedKeys="true" keyProperty="id">
+		insert into t_article(title, content, content_text, status, create_at, update_at) 
+			values(#{title}, #{content}, #{contentText}, #{status}, #{createAt}, #{updateAt})
+	</insert>
+
+	<update id="update" parameterType="com.zzw.search.entity.Article">
+		update t_article set title=#{title}, content=#{content}, content_text=#{contentText}, status=#{status}, create_at=#{createAt}, update_at=#{updateAt} 
+			where id=#{id}
+	</update>
+
+	<delete id="delete" parameterType="long">
+		delete from t_article where id=#{id}
+	</delete>
+
+	<select id="getById" parameterType="long" resultMap="articleMap">
+		select * from t_article where id=#{id}
+	</select>
+
+	<select id="getByIds" parameterType="long" resultMap="articleMap">
+		select * from t_article where id in
+		<foreach collection="array" item="id" index="index" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
+
+	<select id="findAll" resultMap="articleMap">
+		select * from t_article
+	</select>
+	
+	<select id="getByPage" resultMap="articleMap">
+		select * from t_article where status=#{status} limit #{start}, #{size}
+	</select>
+	
+	<select id="count" parameterType="int" resultType="int">
+		select count(id) from t_article where status=#{status}
+	</select>
+	
+</mapper>

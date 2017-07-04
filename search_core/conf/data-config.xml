@@ -1,0 +1,16 @@
+<dataConfig>
+    <dataSource type="JdbcDataSource" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://127.0.0.1:3306/search" user="root" password="123456" batchSize="-1" />
+　　<document>
+        <entity name="article" pk="id" 
+		query="select id,title,content_text,status,create_at,update_at from t_article where status=1"
+ 		deltaImportQuery="select id,title,content_text,status,create_at,update_at from t_article where id='${dih.delta.id}'"
+		deltaQuery="select id from t_article where status=1 and update_at > '${dataimporter.last_index_time}'">
+　　　      <field column="id" name="id"/>
+　　　      <field column="title" name="title"/>
+            <field column="content_text" name="content_text"/>
+	    <field column="status" name="status"/>
+	    <field column="create_at" name="create_at"/>
+	    <field column="update_at" name="update_at"/>
+　　　  </entity>
+　　</document>
+</dataConfig>
